@@ -14,6 +14,7 @@ function App() {
   const [isSnooze,setIsSnooze] = useState(false);
   const [snoozeCount, setSnoozeCount] = useState(11);
   const [snooze,setSnooze] = useState(false);
+  const [isStart,setIsStart] = useState(false);
   
 
   useEffect(()=>{
@@ -68,7 +69,7 @@ function App() {
   //on start function
   const onStart = (minutes,seconds,hours) => {
     if(hours == 0 && seconds == 0 && minutes == 0) return;
-
+   
     if(seconds < 0) setSeconds(0);
     if(minutes < 0) setMinutes(0);
     if(hours < 0) setHours(0);
@@ -89,12 +90,13 @@ function App() {
         setMinutes(minutes - 1);
        }
     setFlag(true);
+    setIsStart(true);
   }
 
   //reset
   const reset = () => {
     setFlag(false);
-   
+    setIsStart(false);
     setTimeout(() => {
       setHours(0);
       setMinutes(0);
@@ -106,19 +108,23 @@ function App() {
   }
 
   //pause or resume
-  const pauseOrResume = (flag) => {
+  const pauseOrResume = (flag,hours,minutes,seconds,isStart) => {
+    if(hours == 0 && seconds == 0 && minutes == 0) return;
+    if(!isStart) return;
     if(flag){
       setFlag(false);
     }else{
       setFlag(true);
-      setSeconds(seconds - 1);
+      seconds > 0 ? setSeconds(seconds - 1) : setSeconds(59);
     }
+  
   }
 
   const playFunc = (sound) => {
      if(sound == 'pause') {
       setPlaying(false); 
       setIsSnooze(false);
+      setIsStart(false);
      }
      if(sound == 'snooze'){
         setPlaying(false);
@@ -142,7 +148,7 @@ function App() {
             <input type="number" style={{width:"60px",borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} value={minutes} onChange={e=>handleChange(e,setMinutes)} />
             <input type="number" style={{width:"60px",borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} value={seconds} onChange={e=>handleChange(e,setSeconds)} />
             <Button type="button" variant="primary" size="lg"  style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>onStart(minutes,seconds,hours)}>Start</Button>
-            <Button type="button" variant="secondary" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>pauseOrResume(flag)}>Pause / Resume</Button>
+            <Button type="button" variant="secondary" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>pauseOrResume(flag,hours,minutes,seconds,isStart)}>Pause / Resume</Button>
             <Button type="button" variant="danger" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>reset()}>Reset</Button>
            { playing ?
             <Button type="button" variant="danger" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>playFunc('pause')}>Stop</Button>
