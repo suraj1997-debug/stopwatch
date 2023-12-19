@@ -94,14 +94,20 @@ function App() {
   }
 
   //reset
-  const reset = () => {
+  const reset = (isStart) => {
     setFlag(false);
+    if(!isStart){
+      setHours(0);
+      setMinutes(0);
+      setSeconds(0);
+    }else{
     setIsStart(false);
     setTimeout(() => {
       setHours(0);
       setMinutes(0);
       setSeconds(0);
     }, 1000);
+   }
     setSnooze(false);
     setIsSnooze(false);
     setPlaying(false);
@@ -149,7 +155,7 @@ function App() {
             <input type="number" style={{width:"60px",borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} value={seconds} onChange={e=>handleChange(e,setSeconds)} />
             <Button type="button" variant="primary" size="lg"  style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>onStart(minutes,seconds,hours)}>Start</Button>
             <Button type="button" variant="secondary" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>pauseOrResume(flag,hours,minutes,seconds,isStart)}>Pause / Resume</Button>
-            <Button type="button" variant="danger" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>reset()}>Reset</Button>
+            <Button type="button" variant="danger" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>reset(isStart)}>Reset</Button>
            { playing ?
             <Button type="button" variant="danger" size="lg" style={{borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} onClick={()=>playFunc('pause')}>Stop</Button>
             : null
