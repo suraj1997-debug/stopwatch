@@ -135,7 +135,7 @@ function App() {
       <header className="App-header">
         <h2 style={{fontSize:"6rem",marginBottom:"3rem",fontWeight:"bold",color:"#ce8218"}}>Stopwatch</h2>
         <div className='stopwatch-div'>
-        <h2 style={{fontSize:"7rem",color:"#abc295"}}>{hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h2>
+        <h2 style={{fontSize:"4rem",color:"#abc295"}}>{hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h2>
         </div>
       <div style={{display:"flex",alignItems:"center"}}>
             <input type="number" style={{width:"60px",borderRadius: "0.4rem 0.4rem 0.4rem 0.4rem",margin:"0 0.4rem"}} value={hours} onChange={e=>handleChange(e,setHours)} />
