@@ -14,7 +14,7 @@ function App() {
   const [isSnooze,setIsSnooze] = useState(false);
   const [snoozeCount, setSnoozeCount] = useState(11);
   const [snooze,setSnooze] = useState(false);
-
+  
 
   useEffect(()=>{
     if(flag){
@@ -115,6 +115,7 @@ function App() {
   const playFunc = (sound) => {
      if(sound == 'pause') {
       setPlaying(false); 
+      setIsSnooze(false);
      }
      if(sound == 'snooze'){
         setPlaying(false);
