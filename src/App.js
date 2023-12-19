@@ -94,9 +94,12 @@ function App() {
   //reset
   const reset = () => {
     setFlag(false);
-    setHours(0);
-    setMinutes(0);
-    setSeconds(0);
+   
+    setTimeout(() => {
+      setHours(0);
+      setMinutes(0);
+      setSeconds(0);
+    }, 1000);
     setSnooze(false);
     setIsSnooze(false);
     setPlaying(false);
